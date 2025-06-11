@@ -3,7 +3,7 @@ BOOT_PATH ?= BOOT/BOOT.ELF
 
 PAYLOAD = PROTPWN
 OUT_DIR = BIEXEC-SYSTEM
-EE_BIN = mbr.elf
+EE_BIN = payload.elf
 EE_BIN_RAW = payload.bin
 
 EE_INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I$(PS2SDK)/sbv/include -Iinclude -I$(PS2SDK)/ports/include

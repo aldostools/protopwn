@@ -1,6 +1,6 @@
 # ProtoPwn
 
-An exploit for the Protokernel PlayStation 2 systems (SCPH-10000, SCPH-15000, and DTL-H10000(S)) that enables custom code execution through a flaw in the OSDSYS Browser update code.
+An exploit for the Protokernel PlayStation 2 systems (SCPH-10000, SCPH-15000, and DTL-H10000(S)) that enables arbitrary code execution through a flaw in the OSDSYS Browser update code.
 
 ## Usage
 
