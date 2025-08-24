@@ -8,6 +8,18 @@
 #define NEWLIB_PORT_AWARE
 #include <fileio.h>
 
+// Placeholder entrypoint function for the PS2SDK crt0, to be placed at 0x007a0000.
+// Jumps to the actual entrypoint (__start)
+__attribute__((weak)) void __start();
+__attribute__((noreturn)) void __entrypoint() {
+  asm volatile("# Jump to crt0 __start \n"
+               "j      %0              \n"
+               :
+               : "Csy"(__start)
+               :);
+  __builtin_unreachable();
+}
+
 // Reduce binary size by disabling the unneeded functionality
 void _libcglue_init() {}
 void _libcglue_deinit() {}
@@ -84,7 +96,7 @@ int launch() {
 
 int main() {
   DI();
-  // Patch protokernel function to execute the launch function in the main thread
+  // Apply the kernel patch and patch the OSDSYS code to execute our function in the main thread
   if ((_lw(0x00204c88) & 0xfcff0000) == 0x0c080000) { // ROM 0100
     applyKPatch(kpatch_0100_img, size_kpatch_0100_img);
     _sw((0x0c000000 | ((uint32_t)launch >> 2)), (uint32_t)0x00204c88); // jal launch

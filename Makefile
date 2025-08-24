@@ -7,8 +7,8 @@ EE_BIN = payload.elf
 EE_BIN_RAW = payload.bin
 
 EE_INCS = -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I$(PS2SDK)/sbv/include -Iinclude -I$(PS2SDK)/ports/include
-EE_LIBS = -ldebug
-EE_OBJS = main.o crt0.o
+EE_LIBS =
+EE_OBJS = main.o
 
 EE_LINKFILE = linkfile
 ELF_FILES += loader.elf
@@ -17,7 +17,7 @@ KPATCH_FILES += kpatch_0100.img kpatch_0101.img
 # C compiler flags
 EE_CFLAGS := -D_EE -O2 -G0 -Wall $(EE_CFLAGS)
 EE_CFLAGS = -D_EE -Os -G0 -Wall -Werror -fdata-sections -ffunction-sections $(EE_INCS)
-EE_LDFLAGS += -Wl,-zmax-page-size=128 -Wl,--gc-sections -nostartfiles -s
+EE_LDFLAGS += -Wl,-zmax-page-size=128 -Wl,--gc-sections -s
 
 ifdef BOOT_PATH
  EE_CFLAGS += -DBOOT_PATH=\"$(BOOT_PATH)\"
