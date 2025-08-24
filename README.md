@@ -1,12 +1,21 @@
 # ProtoPwn
 
-An exploit for the Protokernel PlayStation 2 systems (SCPH-10000, SCPH-15000, and DTL-H10000(S)) that enables arbitrary code execution through a flaw in the OSDSYS Browser update code.
+An exploit for the Protokernel PlayStation 2 systems that enables arbitrary code execution through a flaw in the OSDSYS Browser update code.
+
+Supported PS2 models:
+- SCPH-10000
+- SCPH-15000
+- DTL-H10000(S)
+
+Note: newer PS2 models are not supported and __will never be__ supported by this exploit.
 
 ## Usage
 
 1. Run `make`
 2. Copy `BIEXEC-SYSTEM` to the root of your memory card
-3. Copy the payload you want to run to `BOOT/BOOT.ELF`
+3. Copy the payload you want to run to:
+    - _ProtoPwn_: `BOOT/BOOT.ELF`
+    - _ProtoPwn UMCS_: `BIEXEC-SYSTEM/BOOT.ELF`
 
 ## How it works
 

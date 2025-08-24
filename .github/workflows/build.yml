@@ -30,6 +30,21 @@ jobs:
           BIEXEC-SYSTEM/
           README.md
 
+    - name: Compile the UMCS variant
+      id: make-umcs
+      run: |
+        make clean
+        make BOOT_PATH=BIEXEC-SYSTEM/BOOT.ELF
+
+    - name: Upload UMCS artifacts
+      uses: actions/upload-artifact@v4
+      if: steps.make-umcs.outcome == 'success'
+      with:
+        name: artifacts-umcs
+        path: |
+          BIEXEC-SYSTEM/
+          README.md
+
   release:
     needs: [build]
     runs-on: ubuntu-latest
@@ -54,6 +69,8 @@ jobs:
       run: |
         cd artifacts
         zip -r ../protopwn-${{ env.GIT_VERSION }}.zip ./*
+        cd ../artifacts-umcs
+        zip -r ../protopwn-umcs-${{ env.GIT_VERSION }}.zip ./*
 
     - uses: "marvinpinto/action-automatic-releases@latest"
       if: github.ref == 'refs/heads/main'
@@ -64,6 +81,7 @@ jobs:
         title: "Nightly build"
         files: |
           protopwn-${{ env.GIT_VERSION }}.zip
+          protopwn-umcs-${{ env.GIT_VERSION }}.zip
 
     - uses: "marvinpinto/action-automatic-releases@latest"
       if: startsWith(github.ref, 'refs/tags/v')
@@ -72,3 +90,4 @@ jobs:
         draft: true
         files: |
           protopwn-${{ env.GIT_VERSION }}.zip
+          protopwn-umcs-${{ env.GIT_VERSION }}.zip
